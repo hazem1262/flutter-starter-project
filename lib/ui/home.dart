@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:flutterstarterproject/data/home/models/albums_response_entity.dart';
+import 'package:flutterstarterproject/utils/network/network_util.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -52,23 +53,9 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<List<AlbumsResponseEntity>> getPosts() async{
-    try{
-      var dio = Dio();
-      var response = await dio.get<List<dynamic>>("http://jsonplaceholder.typicode.com/albums");
-      print("status code: ${response.statusCode}");
-      if (response.statusCode == 200) {
-        var userId = response.data[0]['userId'];
-        var userTitle = response.data[0]['title'];
-        print('userId: $userId, userTitle:$userTitle');
-        List<AlbumsResponseEntity> albums = List<AlbumsResponseEntity>.from(response.data.map((e) => AlbumsResponseEntity().fromJson(e)));
-        return albums;
-      } else {
-        print('Request failed with status: ${response.statusCode}.');
-        return Future.error(Exception("network error"));
-      }
-    } catch(e){
-      return Future.error(Exception("network error"));
-    }
+    var response = await NetworkUtil().get("/albums");
+    List<AlbumsResponseEntity> albums = List<AlbumsResponseEntity>.from(response.map((e) => AlbumsResponseEntity().fromJson(e)));
+    return albums;
   }
 
   void getAlbums() async{
