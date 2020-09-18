@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'dart:convert' as convert;
 import 'package:dio/dio.dart';
+import 'package:flutterstarterproject/data/home/models/albums_response_entity.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -22,15 +22,15 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: FutureBuilder<AlbumsResponse>(
+      body: FutureBuilder<List<AlbumsResponseEntity>>(
         future: getPosts(),
         builder: (buildContext, snapshot){
           if(snapshot.hasData){
             var response = snapshot.data;
             return ListView.builder(
-              itemCount: response.albums.length,
+              itemCount: response.length,
               itemBuilder: (buildContext, index){
-                var album = response.albums[index];
+                var album = response[index];
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Card(
@@ -51,17 +51,16 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Future<AlbumsResponse> getPosts() async{
+  Future<List<AlbumsResponseEntity>> getPosts() async{
     try{
       var dio = Dio();
-      var response = await dio.get("http://jsonplaceholder.typicode.com/albums");
+      var response = await dio.get<List<dynamic>>("http://jsonplaceholder.typicode.com/albums");
       print("status code: ${response.statusCode}");
       if (response.statusCode == 200) {
-
         var userId = response.data[0]['userId'];
         var userTitle = response.data[0]['title'];
         print('userId: $userId, userTitle:$userTitle');
-        AlbumsResponse albums = AlbumsResponse.fromJson(response.data);
+        List<AlbumsResponseEntity> albums = List<AlbumsResponseEntity>.from(response.data.map((e) => AlbumsResponseEntity().fromJson(e)));
         return albums;
       } else {
         print('Request failed with status: ${response.statusCode}.');
@@ -74,7 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void getAlbums() async{
     var albums = await getPosts();
-    print("albums count is : ${albums.albums.length}");
+    print("albums count is : ${albums.length}");
   }
 
 }
