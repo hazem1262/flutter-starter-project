@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:convert' as convert;
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -52,17 +52,22 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<AlbumsResponse> getPosts() async{
-    var response = await http.get("http://jsonplaceholder.typicode.com/albums");
-    print("status code: ${response.statusCode}");
-    if (response.statusCode == 200) {
-      var jsonResponse = convert.jsonDecode(response.body);
-      var userId = jsonResponse[0]['userId'];
-      var userTitle = jsonResponse[0]['title'];
-      print('userId: $userId, userTitle:$userTitle');
-      AlbumsResponse albums = AlbumsResponse.fromJson(jsonResponse);
-      return albums;
-    } else {
-      print('Request failed with status: ${response.statusCode}.');
+    try{
+      var dio = Dio();
+      var response = await dio.get("http://jsonplaceholder.typicode.com/albums");
+      print("status code: ${response.statusCode}");
+      if (response.statusCode == 200) {
+
+        var userId = response.data[0]['userId'];
+        var userTitle = response.data[0]['title'];
+        print('userId: $userId, userTitle:$userTitle');
+        AlbumsResponse albums = AlbumsResponse.fromJson(response.data);
+        return albums;
+      } else {
+        print('Request failed with status: ${response.statusCode}.');
+        return Future.error(Exception("network error"));
+      }
+    } catch(e){
       return Future.error(Exception("network error"));
     }
   }
