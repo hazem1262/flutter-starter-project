@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'dart:convert' as convert;
+import 'package:http/http.dart' as http;
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -20,6 +22,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getPosts();
+  }
 
   void _incrementCounter() {
     setState(() {
@@ -83,4 +91,18 @@ class _MyHomePageState extends State<MyHomePage> {
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
+
+  getPosts() async{
+    var response = await http.get("http://jsonplaceholder.typicode.com/albums");
+    print("status code: ${response.statusCode}");
+    if (response.statusCode == 200) {
+      var jsonResponse = convert.jsonDecode(response.body);
+      var userId = jsonResponse[0]['userId'];
+      var userTitle = jsonResponse[0]['title'];
+      print('userId: $userId, userTitle:$userTitle');
+    } else {
+      print('Request failed with status: ${response.statusCode}.');
+    }
+  }
+
 }
