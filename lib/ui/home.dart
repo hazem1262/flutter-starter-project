@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:flutterstarterproject/data/home/models/albums_response_entity.dart';
+import 'package:flutterstarterproject/utils/network/error.dart';
 import 'package:flutterstarterproject/utils/network/network_util.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -44,7 +45,14 @@ class _MyHomePageState extends State<MyHomePage> {
               }
             );
           } else if (snapshot.hasError){
-            return Center(child: Text("Networking error"),);
+            if (snapshot.error is ApplicationError){
+              ApplicationError error = snapshot.error;
+              return Center(child: Text(error.errorMsg),);
+            } else if(snapshot.error is Exception){
+              Exception error = snapshot.error;
+              return Center(child: Text(error.toString()),);
+            }
+            return Center(child: Text(snapshot.error.toString()),);
           }
           return Center(child: CircularProgressIndicator(),);
         },
