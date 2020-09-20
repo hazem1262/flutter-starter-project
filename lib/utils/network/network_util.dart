@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutterstarterproject/utils/network/consts.dart';
 import 'package:flutterstarterproject/utils/network/error.dart';
 
 class NetworkUtil{
@@ -13,7 +14,7 @@ class NetworkUtil{
 
   void initDio() {
     // Set default configs
-    dio.options.baseUrl = "http://jsonplaceholder.typicode.com";
+    dio.options.baseUrl = BASE_URL;
     dio.options.connectTimeout = 5000; //5s
     dio.options.receiveTimeout = 3000;
     dio.interceptors.add(LogInterceptor(requestBody: true, responseBody: true));
