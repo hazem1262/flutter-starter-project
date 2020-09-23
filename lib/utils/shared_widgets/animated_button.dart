@@ -1,5 +1,5 @@
-import 'package:dawa_masr/utils/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterstarterproject/utils/style/theme.dart';
 import 'package:provider/provider.dart';
 
 class AnimatedButton extends StatelessWidget {

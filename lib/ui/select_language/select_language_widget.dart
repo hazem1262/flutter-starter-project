@@ -1,10 +1,8 @@
-import 'package:dawa_masr/application.dart';
-import 'package:dawa_masr/locale/my_localization.dart';
-import 'package:dawa_masr/shared_widgets/animatedButton.dart';
-import 'package:dawa_masr/ui/onBoarding/on_boarding1.dart';
-import 'package:dawa_masr/utils/locale_dao.dart';
-import 'package:dawa_masr/utils/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterstarterproject/generated/l10n.dart';
+import 'package:flutterstarterproject/ui/sample/sample_widget.dart';
+import 'package:flutterstarterproject/utils/shared_widgets/animated_button.dart';
+import 'package:flutterstarterproject/utils/style/theme.dart';
 
 class SelectLanguageWidget extends StatefulWidget {
   static const tag = "SelectLanguageWidget";
@@ -23,7 +21,7 @@ class _SelectLanguageWidgetState extends State<SelectLanguageWidget> {
         height: double.infinity,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/images/sign_in_bg.png",),
+            image: AssetImage("assets/images/blue_bg.png",),
             fit: BoxFit.cover
           )
         ),
@@ -33,7 +31,7 @@ class _SelectLanguageWidgetState extends State<SelectLanguageWidget> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(MyLocalization.of(context).trans("select_language"), style: Theme.of(context).textTheme.title,),
+                Text(S.of(context).selectLanguage, style: Theme.of(context).textTheme.title,),
                 Padding(
                   padding: const EdgeInsets.only(top:25.0, bottom: 10),
                   child: LanguageButton(
@@ -42,9 +40,9 @@ class _SelectLanguageWidgetState extends State<SelectLanguageWidget> {
                     onPressed: (){
                       setState(() {
                         selectedValue = ENGLISH_VALUE;
-                        LocaleDao().writeLocale("en");
+                        /*LocaleDao().writeLocale("en");
                         application.setLocale(new Locale("en"));
-                        application.onLocaleChanged(Locale("en"));
+                        application.onLocaleChanged(Locale("en"));*/
                       });
                     },
                   ),
@@ -55,9 +53,9 @@ class _SelectLanguageWidgetState extends State<SelectLanguageWidget> {
                   onPressed: (){
                     setState(() {
                       selectedValue = ARABIC_VALUE;
-                      LocaleDao().writeLocale("ar");
+                      /*LocaleDao().writeLocale("ar");
                       application.setLocale(new Locale("ar"));
-                      application.onLocaleChanged(Locale("ar"));
+                      application.onLocaleChanged(Locale("ar"));*/
                     });
                   },
                 ),
@@ -66,9 +64,11 @@ class _SelectLanguageWidgetState extends State<SelectLanguageWidget> {
                   child: AnimatedButton(
                     isDisabled: (selectedValue != ARABIC_VALUE && selectedValue != ENGLISH_VALUE),
                     controller: AnimatedButtonController(),
-                    btnName: MyLocalization.of(context).trans("select"),
+                    btnName: S.of(context).select,
                     onPressed: (){
-                      Navigator.of(context).pushReplacementNamed(ObBoarding1.tag);
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => SampleWidget(title: "",),
+                      ));
                     },
                   ),
                 )
