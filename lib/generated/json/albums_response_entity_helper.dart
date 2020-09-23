@@ -1,4 +1,4 @@
-import 'package:flutterstarterproject/data/home/models/albums_response_entity.dart';
+import 'package:flutterstarterproject/data/sample/models/albums_response_entity.dart';
 
 albumsResponseEntityFromJson(AlbumsResponseEntity data, Map<String, dynamic> json) {
 	if (json['userId'] != null) {

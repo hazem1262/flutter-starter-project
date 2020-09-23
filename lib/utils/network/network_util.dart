@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:flutterstarterproject/utils/network/consts.dart';
 import 'package:flutterstarterproject/utils/network/error.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class NetworkUtil{
   static final NetworkUtil _networkUtil = NetworkUtil._internal();
@@ -13,10 +15,16 @@ class NetworkUtil{
 
   void initDio() {
     // Set default configs
-    dio.options.baseUrl = "http://jsonplaceholder.typicode.com";
+    dio.options.baseUrl = BASE_URL;
     dio.options.connectTimeout = 5000; //5s
     dio.options.receiveTimeout = 3000;
-    dio.interceptors.add(LogInterceptor(requestBody: true, responseBody: true));
+    dio.interceptors.add(PrettyDioLogger(
+      requestHeader: true,
+      requestBody: true,
+      responseBody: true,
+      responseHeader: false,
+      compact: false,
+    ));
   }
 
   Future<T> get<T>(String endPoint) async{
