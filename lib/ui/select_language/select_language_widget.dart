@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutterstarterproject/generated/l10n.dart';
+import 'package:flutterstarterproject/ui/main/main_provider.dart';
 import 'package:flutterstarterproject/ui/sample/sample_widget.dart';
 import 'package:flutterstarterproject/utils/shared_widgets/animated_button.dart';
 import 'package:flutterstarterproject/utils/style/theme.dart';
+import 'package:provider/provider.dart';
 
 class SelectLanguageWidget extends StatefulWidget {
   static const tag = "SelectLanguageWidget";
@@ -40,9 +42,7 @@ class _SelectLanguageWidgetState extends State<SelectLanguageWidget> {
                     onPressed: (){
                       setState(() {
                         selectedValue = ENGLISH_VALUE;
-                        /*LocaleDao().writeLocale("en");
-                        application.setLocale(new Locale("en"));
-                        application.onLocaleChanged(Locale("en"));*/
+                        Provider.of<MainProvider>(context, listen: false).updateApplicationLocale(S.delegate.supportedLocales[0]);
                       });
                     },
                   ),
@@ -53,9 +53,7 @@ class _SelectLanguageWidgetState extends State<SelectLanguageWidget> {
                   onPressed: (){
                     setState(() {
                       selectedValue = ARABIC_VALUE;
-                      /*LocaleDao().writeLocale("ar");
-                      application.setLocale(new Locale("ar"));
-                      application.onLocaleChanged(Locale("ar"));*/
+                      Provider.of<MainProvider>(context, listen: false).updateApplicationLocale(S.delegate.supportedLocales[1]);
                     });
                   },
                 ),
