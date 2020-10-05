@@ -33,7 +33,45 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `Flutter demo`
+  String get projectTitle {
+    return Intl.message(
+      'Flutter demo',
+      name: 'projectTitle',
+      desc: '',
+      args: [],
+    );
+  }
 
+  /// `Flutter starter project`
+  String get pageTitle {
+    return Intl.message(
+      'Flutter starter project',
+      name: 'pageTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `select`
+  String get select {
+    return Intl.message(
+      'select',
+      name: 'select',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select Language`
+  String get selectLanguage {
+    return Intl.message(
+      'Select Language',
+      name: 'selectLanguage',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
@@ -41,7 +79,8 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
 
   List<Locale> get supportedLocales {
     return const <Locale>[
-      Locale.fromSubtags(languageCode: 'en'),
+      Locale.fromSubtags(languageCode: 'en', countryCode: 'US'),
+      Locale.fromSubtags(languageCode: 'ar', countryCode: 'SA'),
     ];
   }
 
