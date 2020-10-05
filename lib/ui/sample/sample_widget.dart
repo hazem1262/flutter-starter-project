@@ -5,6 +5,7 @@ import 'package:flutterstarterproject/ui/sample/sample_model.dart';
 import 'package:flutterstarterproject/utils/shared_widgets/loading_widget.dart';
 
 class SampleWidget extends StatelessWidget {
+  static const tag = "SampleWidget";
   final String title;
   SampleWidget({Key key, this.title}) : super(key: key);
 

@@ -4,6 +4,7 @@ import 'package:flutterstarterproject/base/base_view.dart';
 import 'package:flutterstarterproject/generated/l10n.dart';
 import 'package:flutterstarterproject/ui/main/main_provider.dart';
 import 'package:flutterstarterproject/ui/select_language/select_language_widget.dart';
+import 'package:flutterstarterproject/utils/navigation/navigation_helper.dart';
 
 void main() {
   runApp(MyApp());
@@ -29,7 +30,8 @@ class MyApp extends StatelessWidget {
             GlobalCupertinoLocalizations.delegate,
           ],
           supportedLocales: S.delegate.supportedLocales,
-          home: SelectLanguageWidget(),
+          onGenerateRoute: getApplicationRoute,
+          initialRoute: SelectLanguageWidget.tag,
           locale: mainProvider.applicationLocale ?? Localizations.localeOf(context),
         );
       },
