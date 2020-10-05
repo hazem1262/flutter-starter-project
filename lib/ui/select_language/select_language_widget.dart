@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterstarterproject/generated/l10n.dart';
-import 'file:///E:/android/projects/flutter-starter-project/lib/main_provider.dart';
+import 'package:flutterstarterproject/main_provider.dart';
 import 'package:flutterstarterproject/ui/sample/sample_widget.dart';
 import 'package:flutterstarterproject/utils/shared_widgets/animated_button.dart';
 import 'package:flutterstarterproject/utils/style/theme.dart';
