@@ -10,5 +10,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutterstarterproject/ui/main/main.dart';
 
 void main() {
+  test('Counter value should be incremented', () {
 
+    expect(1, 1);
+  });
 }
