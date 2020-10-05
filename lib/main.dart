@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutterstarterproject/base/base_view.dart';
 import 'package:flutterstarterproject/generated/l10n.dart';
-import 'package:flutterstarterproject/ui/main/main_provider.dart';
+import 'file:///E:/android/projects/flutter-starter-project/lib/main_provider.dart';
 import 'package:flutterstarterproject/ui/select_language/select_language_widget.dart';
 import 'package:flutterstarterproject/utils/navigation/navigation_helper.dart';
 import 'package:flutterstarterproject/utils/style/theme.dart';
