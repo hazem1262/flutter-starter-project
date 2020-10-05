@@ -5,6 +5,7 @@ import 'package:flutterstarterproject/generated/l10n.dart';
 import 'package:flutterstarterproject/ui/main/main_provider.dart';
 import 'package:flutterstarterproject/ui/select_language/select_language_widget.dart';
 import 'package:flutterstarterproject/utils/navigation/navigation_helper.dart';
+import 'package:flutterstarterproject/utils/style/theme.dart';
 
 void main() {
   runApp(MyApp());
@@ -19,10 +20,7 @@ class MyApp extends StatelessWidget {
       builder: (context, mainProvider, _){
         return MaterialApp(
           title: "Flutter Demo",
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-            visualDensity: VisualDensity.adaptivePlatformDensity,
-          ),
+          theme: appTheme,
           localizationsDelegates: [
             S.delegate,
             GlobalMaterialLocalizations.delegate,

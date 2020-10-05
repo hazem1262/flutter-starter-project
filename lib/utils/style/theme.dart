@@ -39,10 +39,11 @@ const disabledGradient = LinearGradient(
 );
 
 final appTheme = ThemeData(
+  visualDensity: VisualDensity.adaptivePlatformDensity,
   primaryColor: blueDefance,
   fontFamily: 'Poppins',
   textTheme: TextTheme(
-    title: TextStyle(
+    caption: TextStyle(
       color: Colors.white,
       fontWeight: FontWeight.w500,
       fontSize: 25,
@@ -52,26 +53,38 @@ final appTheme = ThemeData(
       fontWeight: FontWeight.w700,
       fontSize: 16
     ),
-    display1: TextStyle(
+    bodyText1: TextStyle(
       color: ashGrey,
       fontSize: 14
     ),
-    display2: TextStyle(
+    bodyText2: TextStyle(
       color: dimGrey,
       fontSize: 13
     ),
-    display3: TextStyle(
+    headline1: TextStyle(
         color: dimGrey,
         fontSize: 16
     ),
-    headline: TextStyle(
+    headline2: TextStyle(
       color: darkMidNightBlue,
       fontSize: 18,
       fontWeight: FontWeight.w700
     ),
-    display4: TextStyle(
+    headline3: TextStyle(
       color: lavender,
       fontSize: 14
+    ),
+    headline4: TextStyle(
+        color: lavender,
+        fontSize: 14
+    ),
+    headline5: TextStyle(
+        color: lavender,
+        fontSize: 14
+    ),
+    headline6: TextStyle(
+        color: lavender,
+        fontSize: 14
     )
   )
 );
