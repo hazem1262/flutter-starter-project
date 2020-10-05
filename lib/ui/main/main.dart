@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'file:///E:/android/projects/flutter-starter-project/lib/ui/sample/sample_widget.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutterstarterproject/base/base_view.dart';
 import 'package:flutterstarterproject/generated/l10n.dart';
