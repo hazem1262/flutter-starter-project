@@ -1,16 +1,11 @@
-# flutterstarterproject
+# flutter-starter-project
 
-A new Flutter application.
+Flutter starter project which can be used to save effort in the begging of any project
 
-## Getting Started
+## State Management
+This starter uses Provider as recommended in docs [List of state management approaches] (https://flutter.dev/docs/development/data-and-backend/state-mgmt/options)
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Technology used
+* [Provider] (https://pub.dev/packages/provider) for state management.
+* [Dio] (https://pub.dev/packages/dio) for networking.
+* [flutter json bean factory] (https://plugins.jetbrains.com/plugin/11415-flutterjsonbeanfactory) use this android studio plugin for converting network json models to dart models
