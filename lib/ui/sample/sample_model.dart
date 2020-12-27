@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutterstarterproject/data/sample/models/albums_response_entity.dart';
 import 'package:flutterstarterproject/data/sample/sample_repository.dart';
+import 'package:get/get.dart';
 
-class SampleModel extends ChangeNotifier{
+class SampleModel extends GetxController{
   SampleRepository sampleRepository = SampleRepository();
   List<AlbumsResponseEntity> albums;
 
@@ -13,7 +14,7 @@ class SampleModel extends ChangeNotifier{
     sampleRepository.getAlbums()
         .then((newAlbums){
           albums = newAlbums;
-          notifyListeners();
+          update();
     });
   }
 }

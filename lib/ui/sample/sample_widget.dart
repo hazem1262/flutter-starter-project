@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutterstarterproject/base/base_view.dart';
 import 'package:flutterstarterproject/generated/l10n.dart';
 import 'package:flutterstarterproject/ui/sample/sample_model.dart';
 import 'package:flutterstarterproject/utils/shared_widgets/loading_widget.dart';
+import 'package:get/get.dart';
 
 class SampleWidget extends StatelessWidget {
   static const tag = "SampleWidget";
@@ -16,9 +16,9 @@ class SampleWidget extends StatelessWidget {
         appBar: AppBar(
           title: Text(S.of(context).pageTitle),
         ),
-        body: BaseView<SampleModel>(
-          model: SampleModel(),
-          builder: (context, sampleModel, _){
+        body: GetBuilder<SampleModel>(
+          init: SampleModel(),
+          builder: (sampleModel){
             return (sampleModel.albums == null) ? CustomLoading()
                 :ListView.builder(
                 itemCount: sampleModel.albums.length,

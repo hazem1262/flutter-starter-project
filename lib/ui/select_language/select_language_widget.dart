@@ -4,7 +4,7 @@ import 'package:flutterstarterproject/main_provider.dart';
 import 'package:flutterstarterproject/ui/sample/sample_widget.dart';
 import 'package:flutterstarterproject/utils/shared_widgets/animated_button.dart';
 import 'package:flutterstarterproject/utils/style/theme.dart';
-import 'package:provider/provider.dart';
+import 'package:get/get.dart';
 
 class SelectLanguageWidget extends StatefulWidget {
   static const tag = "SelectLanguageWidget";
@@ -42,7 +42,7 @@ class _SelectLanguageWidgetState extends State<SelectLanguageWidget> {
                     onPressed: (){
                       setState(() {
                         selectedValue = ENGLISH_VALUE;
-                        Provider.of<MainProvider>(context, listen: false).updateApplicationLocale(S.delegate.supportedLocales[0]);
+                        Get.find<MainProvider>().updateApplicationLocale(S.delegate.supportedLocales[0]);
                       });
                     },
                   ),
@@ -53,7 +53,7 @@ class _SelectLanguageWidgetState extends State<SelectLanguageWidget> {
                   onPressed: (){
                     setState(() {
                       selectedValue = ARABIC_VALUE;
-                      Provider.of<MainProvider>(context, listen: false).updateApplicationLocale(S.delegate.supportedLocales[1]);
+                      Get.find<MainProvider>().updateApplicationLocale(S.delegate.supportedLocales[1]);
                     });
                   },
                 ),
@@ -64,9 +64,7 @@ class _SelectLanguageWidgetState extends State<SelectLanguageWidget> {
                     controller: AnimatedButtonController(),
                     btnName: S.of(context).select,
                     onPressed: (){
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => SampleWidget(title: "",),
-                      ));
+                      Get.toNamed(SampleWidget.tag);
                     },
                   ),
                 )
