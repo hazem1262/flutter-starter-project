@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutterstarterproject/data/local/shared_preference_utils.dart';
 import 'package:flutterstarterproject/generated/l10n.dart';
+import 'package:get/get.dart';
 
-class MainProvider extends ChangeNotifier{
-  Locale applicationLocale = S.delegate.supportedLocales[0];
+class MainProvider extends GetxController{
+  Locale applicationLocale = Get.locale;
 
   MainProvider(){
     loadSavedLocale();
@@ -13,7 +14,8 @@ class MainProvider extends ChangeNotifier{
     if(newLocale != applicationLocale){
       saveApplicationLocale(newLocale.languageCode);
       applicationLocale = newLocale;
-      notifyListeners();
+      Get.updateLocale(newLocale);
+      update();
     }
   }
 
