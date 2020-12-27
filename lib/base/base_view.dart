@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:provider/provider.dart';
 
 class BaseView<T extends GetxController> extends StatelessWidget {
   final Widget Function(T value) builder;
