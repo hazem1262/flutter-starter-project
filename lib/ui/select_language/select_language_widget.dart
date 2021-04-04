@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterstarterproject/generated/l10n.dart';
 import 'package:flutterstarterproject/main_provider.dart';
 import 'package:flutterstarterproject/ui/sample/sample_widget.dart';
+import 'package:flutterstarterproject/utils/services/localization_service.dart';
 import 'package:flutterstarterproject/utils/shared_widgets/animated_button.dart';
 import 'package:flutterstarterproject/utils/style/theme.dart';
 import 'package:get/get.dart';
@@ -42,7 +43,7 @@ class _SelectLanguageWidgetState extends State<SelectLanguageWidget> {
                     onPressed: (){
                       setState(() {
                         selectedValue = ENGLISH_VALUE;
-                        Get.find<MainProvider>().updateApplicationLocale(S.delegate.supportedLocales[0]);
+                        Get.find<LocalizationService>().updateLocale(AppLocale.english);
                       });
                     },
                   ),
@@ -53,7 +54,7 @@ class _SelectLanguageWidgetState extends State<SelectLanguageWidget> {
                   onPressed: (){
                     setState(() {
                       selectedValue = ARABIC_VALUE;
-                      Get.find<MainProvider>().updateApplicationLocale(S.delegate.supportedLocales[1]);
+                      Get.find<LocalizationService>().updateLocale(AppLocale.arabic);
                     });
                   },
                 ),
