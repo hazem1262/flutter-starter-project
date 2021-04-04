@@ -1,75 +1,79 @@
 import 'package:dio/dio.dart';
-import 'package:flutterstarterproject/utils/constants.dart';
-import 'package:flutterstarterproject/utils/services/localization_service.dart';
-import 'package:flutterstarterproject/utils/services/shared_preferences_service.dart';
+import 'package:flutterstarterproject/utils/network/consts.dart';
+import 'package:flutterstarterproject/utils/network/error.dart';
 import 'package:get/get.dart' hide Response;
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class NetworkService extends GetxService {
-  NetworkService._(this._dio);
-  final Dio _dio;
-  static NetworkService init() {
-    final Dio dio = Dio(BaseOptions(
-      receiveTimeout: requestTimeout,
-      connectTimeout: requestTimeout,
-      sendTimeout: requestTimeout,
+  static final NetworkService _networkUtil = NetworkService._();
+  NetworkService._(){
+    initDio();
+  }
+  factory NetworkService(){
+    return _networkUtil;
+  }
+  Dio dio = new Dio();
+
+  void initDio() {
+    // Set default configs
+    dio.options.baseUrl = BASE_URL;
+    dio.options.connectTimeout = 5000; //5s
+    dio.options.receiveTimeout = 3000;
+    dio.interceptors.add(PrettyDioLogger(
+      requestHeader: true,
+      requestBody: true,
+      responseBody: true,
+      responseHeader: false,
+      compact: false,
     ));
+  }
 
-    dio.interceptors.add(InterceptorsWrapper(
-      onRequest: (RequestOptions options) {
-        // Authorization
-        final bool isAuthorized = options.extra['isAuthorized'] as bool;
-        if (isAuthorized) {
-          final String token = Get.find<SharedPreferencesService>().token;
-          options.headers['Authorization'] = 'Bearer $token';
-        }
-
-        // Language
-        final AppLocale locale = Get.find<LocalizationService>().currentLocale;
-        if (locale.languageCode != null) {
-          options.headers['Accept-Language'] = locale.languageCode;
-        }
-        return options;
-      },
-    ));
-
-    if (logAPIRequests) {
-      dio.interceptors.add(LogInterceptor(
-        requestBody: true,
-        responseBody: true,
-      ));
+  Future<T> get<T>(String endPoint) async{
+    try{
+      Response<T> response = await dio.get<T>(endPoint);
+      if(response.statusCode < 200 || response.statusCode > 400 || response.data == null){
+        print("status code error : ${response.statusCode}");
+        return Future.error(getApplicationError(response));
+      } else{
+        return response.data;
+      }
+    } catch(e){
+      print("Network error parsing error: $endPoint");
+      return Future.error(getApplicationErrorFromDioError(e));
     }
-
-    return NetworkService._(dio);
-  }
-  /*
-
-
-
-  Future<dynamic> perform(NetworkRequest request) async {
-    final Response<dynamic> response = await _dio.request<dynamic>(
-      request.url,
-      data: request.data,
-      options: _getOptions(request),
-    );
-    return response.data;
   }
 
-  Options _getOptions(NetworkRequest request) {
-    return Options(
-      headers: request.headers,
-      method: request.method.name,
-      extra: <String, dynamic>{'isAuthorized': request.isAuthorized},
-      validateStatus: isValidStatusCode,
-    );
-  }
-
-  bool isValidStatusCode(int statusCode) {
-    if (statusCode == 401) {
-      throw UnAuthorizedException();
-    } else if (statusCode == 403) {
-      throw ForbiddenException();
-    } else {
-      return true;
+  // not used as dio through exception if status code not valid
+  ApplicationError getApplicationError(Response response) {
+    ErrorType errorType;
+    String errorMsg = "Network error"; // todo(read error msg from response )
+    if(response.statusCode == 401){
+      errorType = Unauthorized();
+      errorMsg = "un authorized";
+    } else if(response.statusCode == 404){
+      errorType = ResourceNotFound();
+      errorMsg = "resource not found";
+    } else{
+      errorType = UnExpected();
+      errorMsg = "un expected error";
     }
-  }*/
+    return ApplicationError( type: errorType, errorMsg: errorMsg);
+  }
+
+  // convert Dio error to application error
+  ApplicationError getApplicationErrorFromDioError(DioError dioError) {
+    ErrorType errorType;
+    String errorMsg = "Network error"; // todo(read error msg from response )
+    if(dioError.response.statusCode == 401){
+      errorType = Unauthorized();
+      errorMsg = "un authorized";
+    } else if(dioError.response.statusCode == 404){
+      errorType = ResourceNotFound();
+      errorMsg = "resource not found";
+    } else{
+      errorType = UnExpected();
+      errorMsg = "un expected error";
+    }
+    return ApplicationError( type: errorType, errorMsg: errorMsg);
+  }
 }

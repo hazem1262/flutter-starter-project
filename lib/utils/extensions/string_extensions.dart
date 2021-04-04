@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutterstarterproject/utils/constants.dart';
+import 'package:flutterstarterproject/utils/network/consts.dart';
 import 'package:flutterstarterproject/utils/services/localization_service.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -23,7 +24,7 @@ extension StringExtensions on String {
   }
 
   String get addBaseUrl {
-    return '${URLs.baseUrl}$this';
+    return '$BASE_URL$this';
   }
 
   String formatDate({String sourceFormat, String outPutFormat}) {

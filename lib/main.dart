@@ -17,7 +17,7 @@ void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Get.putAsync(() => SharedPreferencesService.init(), permanent: true);
   Get.put(LocalizationService.init(), permanent: true);
-  Get.put(NetworkService.init(), permanent: true);
+  Get.put(NetworkService(), permanent: true);
   await Get.putAsync(() => InternetConnectionService.init(), permanent: true);
   runApp(MyApp());
 }
